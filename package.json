@@ -1,0 +1,35 @@
+{
+  "name": "httpyac-plugin-jq",
+  "version": "0.1.0",
+  "description": "HttpYac plugin to apply `jq` commands to the displayed response output.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "test-int": "jest test/integration",
+    "test-unit": "jest test/unit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rngtng/httpyac-plugin-jq.git"
+  },
+  "keywords": [
+    "httpyac",
+    "plugin",
+    "jq",
+    "json"
+  ],
+  "author": "RngTng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rngtng/httpyac-plugin-jq/issues"
+  },
+  "homepage": "https://github.com/rngtng/httpyac-plugin-jq#readme",
+  "dependencies": {
+    "node-jq": "latest"
+  },
+  "devDependencies": {
+    "httpyac": "latest",
+    "jest": "latest",
+    "mockttp": "latest"
+  }
+}
