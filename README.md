@@ -22,7 +22,7 @@ Following example filters the json response to show just `title` attribute of ea
 
 ```
 # @name example
-# @jq .slideshow.slides | map({title: .title})
+# @jq .slideshow.slides | map({title})
 GET https://httpbin.org/json
 
 ```

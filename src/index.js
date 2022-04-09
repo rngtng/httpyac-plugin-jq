@@ -8,7 +8,7 @@ module.exports = (api) => {
       filter = context.httpRegion.metaData.jq;
 
     if (filter && api.utils.getHeader(response.headers, "Content-Type") == 'application/json') {
-      await jq.run(filter, response.parsedBody, options).then((output) => {
+      await jq.run(filter, response.parsedBody, options).then(output => {
         if (api.sessionStore.sessionChangedListener.length > 0) {
           delete response.rawBody;
           response.body = output;
@@ -17,6 +17,9 @@ module.exports = (api) => {
           delete response.prettyPrintBody;
           response.body = JSON.stringify(output, null, 2);
         }
+      }).catch(error => {
+        api.userInteractionProvider.showWarnMessage?.(error);
+        api.log.warn(error);
       });
     }
   });

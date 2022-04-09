@@ -46,7 +46,7 @@ describe("httpyac-plugin-jq", () => {
   beforeEach(() => mockServer.start(8080));
   afterEach(() => mockServer.stop());
 
-  async function exec(code) {
+  async function exec(code, responseBody) {
     const httpFile = await new httpyac.store.HttpFileStore().getOrCreate(
         `any.http`,
         async () => Promise.resolve(code),
@@ -55,18 +55,60 @@ describe("httpyac-plugin-jq", () => {
             workingDir: __dirname,
         }
     );
+    httpFile.hooks.responseLogging.addHook('test', response => {
+      expect(response.body).toBe(responseBody);
+    });
 
     return httpyac.send({
         httpFile,
     });
   }
 
-  it("filters title from response", async () => {
-      const endpointMock = await mockServer.forGet("/json").thenJson(200, jsonResponse);
+  it("executes jq command to filter title from response", async () => {
+    await mockServer.forGet("/json").thenJson(200, jsonResponse);
+
+    await exec(`
+# @jq .slideshow.slides | map({title})
+GET /json
+      `, `[
+  {
+    "title": "Wake up to WonderWidgets!"
+  },
+  {
+    "title": "Overview"
+  }
+]`);
+  });
+
+  describe('when no @jq given', function() {
+    it("returns original value", async () => {
+      await mockServer.forGet("/json").thenJson(200, jsonResponse);
 
       await exec(`
-# @jq .slideshow.slides | map({title: .title})
 GET /json
-      `);
+      `, JSON.stringify(jsonResponse));
+    });
+  });
+
+  describe('when no header returned', function() {
+    it("returns original value", async () => {
+      await mockServer.forGet("/json").thenReply(200, JSON.stringify(jsonResponse));
+
+      await exec(`
+# @jq .slideshow.slides | map({title})
+GET /json
+      `, JSON.stringify(jsonResponse));
+    });
+  });
+
+  describe('when jq fails', function() {
+    fit("returns original value", async () => {
+      await mockServer.forGet("/json").thenJson(200, []);
+
+      await exec(`
+  # @jq .slideshow.slides | map({title})
+  GET /json
+      `, `[]`);
+    });
   });
 });
