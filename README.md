@@ -1,6 +1,6 @@
 # httpyac-plugin-jq
 
-[HttpYac plugin](https://httpyac.github.io) to easily apply [jq](https://stedolan.github.io/jq/) filter to the response output. Based on [node-jq](https://github.com/sanack/node-jq).
+A [HttpYac plugin](https://httpyac.github.io) to easily apply [jq](https://stedolan.github.io/jq/) commands to the response output. Based on [node-jq](https://github.com/sanack/node-jq).
 
 [![build](https://github.com/rngtng/httpyac-plugin-jq/actions/workflows/main.yml/badge.svg)](https://github.com/rngtng/httpyac-plugin-jq/actions/workflows/main.yml)
 
@@ -12,9 +12,11 @@ npm install httpyac-plugin-jq --save
 
 ## Usage
 
-Plugin adds support for JSON response processing with jq on the returned payload. This is usefull when e.g. explorative testing and API, but only focus on certain attributes. It's enabled via meta data instruction `# @jq <command>`. See [jq](https://stedolan.github.io/jq/) and [node-jq](https://github.com/sanack/node-jq) what commands can be applied.
+Plugin adds support for JSON response processing with jq on the returned payload. This is usefull when e.g. explorative testing an API, but only focus on certain attributes. It's enabled via meta data instruction `# @jq <command>`. See [jq](https://stedolan.github.io/jq/) and [node-jq](https://github.com/sanack/node-jq) what commands can be applied.
 
 If response doesn't have content-type `application/json` set, the meta data instruction will be ignored.
+
+If jq command fails, the response stays untouched and a warning is shown.
 
 ### Example
 
@@ -43,7 +45,7 @@ Results in:
 
 ### Note
 
-The result is for display only and doesn't alter the actual response body value. So in any following request
+The result is for display only and doesn't alter the actual response body value. So in any following requests
 access to the response data remains as usual (for the given example above):
 
 ```
