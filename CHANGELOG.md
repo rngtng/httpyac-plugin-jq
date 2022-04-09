@@ -2,6 +2,7 @@
 
 ## v0.2.2
 * Optimized JQ output parsing
+
 ## v0.2.1
 * Simplify the body setting, remove CLI/vscode condition
 * Enable all tests
