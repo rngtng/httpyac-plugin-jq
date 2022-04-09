@@ -4,6 +4,7 @@
 * Simplify the body setting, remove CLI/vscode condition
 * Enable all tests
 * Fix showing warning message
+* Add ESlint with standard code style
 
 ## v0.2.0
 * Add integration tests
