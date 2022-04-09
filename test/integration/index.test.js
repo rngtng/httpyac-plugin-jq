@@ -102,7 +102,9 @@ GET /json
   });
 
   describe('when jq fails', function() {
-    fit("returns original value", async () => {
+    jest.spyOn(httpyac.io.log, 'warn').mockImplementation();
+
+    it("returns original value", async () => {
       await mockServer.forGet("/json").thenJson(200, []);
 
       await exec(`

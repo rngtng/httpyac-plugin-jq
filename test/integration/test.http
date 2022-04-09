@@ -1,4 +1,9 @@
 # Test file for manual execution in vscode
 
-# @jq .slideshow.slides | map((title))
+### Filter for titles
+# @jq .slideshow.slides | map({title})
+GET https://httpbin.org/json
+
+### Show Warning
+# @jq .slideshow.slides | map({title
 GET https://httpbin.org/json

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.2.1
+* Simplify the body setting, remove CLI/vscode condition
+* Enable all tests
+* Fix showing warning message
+
 ## v0.2.0
 * Add integration tests
 * catch JQ exception, show warning

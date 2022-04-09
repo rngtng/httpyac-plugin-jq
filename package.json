@@ -1,6 +1,6 @@
 {
   "name": "httpyac-plugin-jq",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "HttpYac plugin to apply `jq` commands to the displayed response output.",
   "main": "src/index.js",
   "scripts": {

@@ -9,17 +9,12 @@ module.exports = (api) => {
 
     if (filter && api.utils.getHeader(response.headers, "Content-Type") == 'application/json') {
       await jq.run(filter, response.parsedBody, options).then(output => {
-        if (api.sessionStore.sessionChangedListener.length > 0) {
-          delete response.rawBody;
-          response.body = output;
-        }
-        else {
-          delete response.prettyPrintBody;
-          response.body = JSON.stringify(output, null, 2);
-        }
+        delete response.rawBody;
+        delete response.prettyPrintBody;
+        response.body = JSON.stringify(output, null, 2);
       }).catch(error => {
-        api.userInteractionProvider.showWarnMessage?.(error);
-        api.log.warn(error);
+        api.userInteractionProvider.showWarnMessage?.(error.message);
+        api.log.warn(error.message);
       });
     }
   });
