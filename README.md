@@ -6,7 +6,7 @@ A [HttpYac plugin](https://httpyac.github.io) to easily apply [jq](https://stedo
 
 ## Installation
 
-```
+```js
 npm install httpyac-plugin-jq --save
 ```
 
@@ -22,7 +22,7 @@ If jq command fails, the response stays untouched and a warning is shown.
 
 Following example filters the json response to show just `title` attribute of each object in `slideshow.slides` array list:
 
-```
+```http
 # @name example
 # @jq .slideshow.slides | map({title})
 GET https://httpbin.org/json
@@ -30,7 +30,6 @@ GET https://httpbin.org/json
 ```
 
 Results in:
-
 
 ```json
 [
@@ -48,7 +47,7 @@ Results in:
 The result is for display only and doesn't alter the actual response body value. So in any following requests
 access to the response data remains as usual (for the given example above):
 
-```
+```http
 ...
 
 ### next request
@@ -56,7 +55,6 @@ access to the response data remains as usual (for the given example above):
 GET https://httpbin.org/anything?author={example.slideshow.author}
 
 ```
-
 
 ## TODO
 
